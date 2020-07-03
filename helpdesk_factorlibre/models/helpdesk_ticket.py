@@ -10,8 +10,11 @@ class HelpdeskTicket(models.Model):
     _name = 'helpdesk.ticket'
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
-    def _get_default_priority(self):
+    def _get_default_user_id(self):
         return 1
+
+    def _get_default_priority(self):
+        return "Medium"
 
     name = fields.Char(
         string='Title',
@@ -32,16 +35,17 @@ class HelpdeskTicket(models.Model):
     ticket_id = fields.Integer(string="Ticket Number")
 
     priority = fields.Selection([
-        ('High', _('Prioridad Alta')),
-        ('Medium', _('Prioridad Media')),
+        ('Zero', _('Sin prioridad')),
         ('Low', _('Prioridad Baja')),
-    ], string='Priority', default='Low', help="Choose    a priority for the ticket")
+        ('Medium', _('Prioridad Media')),
+        ('High', _('Prioridad Alta')),
+    ], string='Priority', default=_get_default_priority, help="Choose a priority for the ticket")
 
     user_id = fields.Many2one(
         string='Assigned to',
         comodel_name='res.users',
         ondelete='restrict',
-        default=_get_default_priority
+        default=_get_default_user_id
     )
 
     tag_ids = fields.Many2many(

@@ -4,6 +4,7 @@ from odoo import models, fields, _, api
 class HelpdeskTicket(models.Model):
     _inherit = 'helpdesk.ticket'
 
+    # TODO: Como saben a qué Stage corresponde la respuesta de esta búsqueda?
     def _get_default_stage_id(self):
         return self.env['helpdesk.ticket.stage'].search([], limit=1).id
 
