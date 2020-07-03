@@ -10,7 +10,7 @@ class TestHelpdeskTicket(common.SavepointCase):
         cls.stage_closed = cls.env.ref(
             'helpdesk_mgmt.helpdesk_ticket_stage_done'
         )
-
+        cls.user_demo = cls.env.ref('base.user_demo')
         cls.ticket = helpdesk_ticket.create({
             'name': 'Test 1',
             'description': 'Ticket test',
@@ -25,3 +25,14 @@ class TestHelpdeskTicket(common.SavepointCase):
 
         # Verify the method
         self.assertEquals(self.ticket.user_id, self.env.user.id)
+
+    def test_helpdesk_ticket_onchange_partner_id(self):
+        # Verify the parter is undefined
+        self.assertFalse(self.ticket.partner_id)
+
+        # Assign a partner to the ticket
+        self.ticket.partner_id = self.user_demo.id
+
+        # Verify that mail and email change
+        self.assertEquals(self.ticket.customer_name, self.user_demo.name)
+        self.assertEquals(self.ticket.customer_mail, self.user_demo.email)
