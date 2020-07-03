@@ -20,3 +20,8 @@ class HelpdeskTicket(models.Model):
         default=_get_default_stage_id,
         track_visibility='onchange',
     )
+
+    kanban_state = fields.Selection([
+        ('normal', 'Default'),
+        ('done', 'Ready for next stage'),
+        ('blocked', 'Blocked')], string='Kanban State')
