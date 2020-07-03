@@ -30,7 +30,10 @@ class HelpdeskTicket(models.Model):
         store=True
     )
 
-    closing_date = fields.Datetime(string="Closing Date")
+    closing_date = fields.Datetime(
+        string="Closing Date",
+        compute="_compute_closing_date",
+        store=True)
 
     ticket_id = fields.Integer(string="Ticket Number")
 
@@ -69,6 +72,8 @@ class HelpdeskTicket(models.Model):
             'user_id': self.env.user.id
         })
 
+    ### On Change Methods ###
+
     @api.onchange('partner_id')
     def onchange_partner_id(self):
         for record in self:
@@ -79,9 +84,20 @@ class HelpdeskTicket(models.Model):
                     'customer_mail': partner.email
                 })
 
+    ### Depends Methods ###
+
     @api.depends('user_id')
     def _compute_assignation_date(self):
         self.assignation_date = fields.Datetime.now()
+
+    @api.depends('stage_id')
+    def _compute_closing_date(self):
+        for record in self:
+            stage_id = record.stage_id
+            if stage_id.name in ["Done", "Cancelled"]:
+                record.closing_date = fields.Datetime.now()
+
+    ### CRUD Methods ###
 
     @api.model
     def create(self, vals):
