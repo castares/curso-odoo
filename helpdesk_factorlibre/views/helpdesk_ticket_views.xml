@@ -133,16 +133,19 @@
 
                             </div>
                             <div class="o_kanban_record_body">
-                                <field name="priority" widget="priority"/>
-                                <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
                                 <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
                             </div>
                             <div class="o_kanban_record_bottom">
                                 <div class="oe_kanban_bottom_left">
-                                    <field name="activity_ids" widget="kanban_activity" related="activity_state"/>
-                                    <field name="activity_state" invisible="0"/>
+                                    <small>
+                                        <field name="priority" widget="priority"/>
+                                    </small>
                                 </div>
                                 <div class="oe_kanban_bottom_right">
+                                    <small>
+                                        <field name="activity_ids" widget="kanban_activity" related="activity_state"/>
+                                    </small>
+                                    <field name="activity_state" invisible="0"/>
                                     <field name="kanban_state" widget="state_selection"/>
                                     <img t-att-src="kanban_image('res.users', 'image_small', record.user_id.raw_value)" t-att-title="record.user_id.value" width="24" height="24" class="oe_kanban_avatar" alt="Assigned user image"/>
                                 </div>
