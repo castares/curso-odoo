@@ -8,7 +8,7 @@ class TestHelpdeskTicket(common.SavepointCase):
         super(TestHelpdeskTicket, cls).setUpClass()
         helpdesk_ticket = cls.env['helpdesk.ticket']
         cls.stage_closed = cls.env.ref(
-            'helpdesk_mgmt.helpdesk_ticket_stage_done'
+            'helpdesk_factorlibre.helpdesk_ticket_stage_done'
         )
         cls.user_demo = cls.env.ref('base.user_demo')
         cls.ticket = helpdesk_ticket.create({
