@@ -20,7 +20,6 @@
 
     <!-- Rules -->
 
-    <!-- TODO  Las reglas de registro no implementan los permisos definidos en el csv-->
     <record id="helpdesk_factorlibre_rule_agent" model="ir.rule">
         <field name="name">Helpdesk Factorlibre Agents</field>
         <field ref="model_helpdesk_ticket" name="model_id"/>
