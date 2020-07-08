@@ -43,7 +43,7 @@
         <!-- Teams -->
         <record id="helpdesk_ticket_team_marketing" model="helpdesk.ticket.team">
             <field name="sequence">1</field>
-            <field name="name">Marketing</field>
+            <field name="name">Customer Service</field>
         </record>
         <record id="helpdesk_ticket_team_sales" model="helpdesk.ticket.team">
             <field name="sequence">2</field>
@@ -51,7 +51,7 @@
         </record>
         <record id="helpdesk_ticket_team_customer_service" model="helpdesk.ticket.team">
             <field name="sequence">3</field>
-            <field name="name">Customer Service</field>
+            <field name="name">Marketing</field>
         </record>
     </data>
 </odoo>

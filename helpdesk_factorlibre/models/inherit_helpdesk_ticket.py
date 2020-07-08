@@ -7,6 +7,9 @@ class HelpdeskTicket(models.Model):
     def _get_default_stage_id(self):
         return self.env['helpdesk.ticket.stage'].search([], limit=1).id
 
+    def _get_default_team_id(self):
+        return self.env['helpdesk.ticket.team'].search([], limit=1).id
+
     @api.model
     def _read_group_stage_ids(self, stages, domain, order):
         stage_ids = self.env['helpdesk.ticket.stage'].search([])
@@ -25,6 +28,7 @@ class HelpdeskTicket(models.Model):
         ('done', 'Ready for next stage'),
         ('blocked', 'Blocked')], string='Kanban State')
 
-    team_id = fields.Many2one('helpdesk.ticket.team')
+    team_id = fields.Many2one('helpdesk.ticket.team',
+                              default=_get_default_team_id)
 
     color = fields.Integer("Color Index", default=0)

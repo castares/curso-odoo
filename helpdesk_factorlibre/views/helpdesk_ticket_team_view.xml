@@ -6,12 +6,14 @@
         <field name="name">Ticket Team</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">helpdesk.ticket.team</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">kanban,tree,form</field>
         <field name="view_type">form</field>
     </record>
 
+
     <!-- Menus -->
-    <menuitem id="helpdesk_ticket_teams_menu" name="Ticket Teams " sequence="16" action="helpdesk_factorlibre.helpdesk_ticket_team_action" parent="helpdesk_factorlibre.helpdesk_ticket_main_menu" />
+
+    <menuitem id="helpdesk_ticket_teams_menu" name="Ticket Teams" sequence="16" action="helpdesk_factorlibre.helpdesk_ticket_team_action" parent="helpdesk_factorlibre.helpdesk_ticket_main_menu" />
 
     <!-- Views -->
 
@@ -42,5 +44,57 @@
             </form>
         </field>
     </record>
+
+    <!-- TODO: Number of tickets is always 0 in the "To Do" Button -->
+    <!-- helpdesk.ticket.team kanban view -->
+    <record id="helpdesk_ticket_view_kanban" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.team.view.kanban</field>
+        <field name="model">helpdesk.ticket.team</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_dashboard" string="Kanban view by teams">
+                <field name="name"/>
+                <field name="color"/>
+                <field name="todo_ticket_count"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="#{kanban_color(record.color.raw_value)}">
+                            <div t-attf-class="o_kanban_card_header">
+                                <div class="o_kanban_card_header_title">
+                                    <div class="o_primary">
+                                        <a name="%(action_helpdesk_ticket_from_teams_kanban)d" type="action">
+                                            <field name="name"/>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="o_kanban_manage_button_section">
+                                    <a class="o_kanban_manage_toggle_button" href="#">
+                                        <i class="fa fa-ellipsis-v" />
+                                    </a>
+                                </div>
+                                <div class="container o_kanban_card_content">
+                                    <div class="row">
+                                        <div class="col-xs-6 o_kanban_primary_left" style="padding-top:20px;">
+                                            <button class="btn btn-primary" name="%(action_helpdesk_ticket_from_teams_kanban)d" type="action" context="{'search_default_open': 1}">
+                                                <t t-esc="record.todo_ticket_count.value"/>
+                                                To Do
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div t-if="widget.editable" class="o_kanban_card_manage_settings row">
+                                    <div class="col-xs-8">
+                                        <ul class="oe_kanban_colorpicker" data-field="color"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+
 
 </odoo>
