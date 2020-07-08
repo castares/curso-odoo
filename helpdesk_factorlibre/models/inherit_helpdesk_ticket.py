@@ -24,3 +24,7 @@ class HelpdeskTicket(models.Model):
         ('normal', 'Default'),
         ('done', 'Ready for next stage'),
         ('blocked', 'Blocked')], string='Kanban State')
+
+    team_id = fields.Many2one('helpdesk.ticket.team')
+
+    color = fields.Integer("Color Index", default=0)

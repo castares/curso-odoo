@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Stages -->
-    <data noupdate="1">
+    <data noupdate="0">
+        <!-- Stages -->
         <record id="helpdesk_ticket_stage_new" model="helpdesk.ticket.stage">
             <field name="sequence">1</field>
             <field name="name">New</field>
@@ -38,6 +38,20 @@
             <field name="closed">True</field>
             <field name="fold">True</field>
             <field name="company_id"/>
+        </record>
+
+        <!-- Teams -->
+        <record id="helpdesk_ticket_team_marketing" model="helpdesk.ticket.team">
+            <field name="sequence">1</field>
+            <field name="name">Marketing</field>
+        </record>
+        <record id="helpdesk_ticket_team_sales" model="helpdesk.ticket.team">
+            <field name="sequence">2</field>
+            <field name="name">Sales</field>
+        </record>
+        <record id="helpdesk_ticket_team_customer_service" model="helpdesk.ticket.team">
+            <field name="sequence">3</field>
+            <field name="name">Customer Service</field>
         </record>
     </data>
 </odoo>
