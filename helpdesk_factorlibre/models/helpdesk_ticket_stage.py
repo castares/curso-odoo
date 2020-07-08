@@ -3,6 +3,7 @@ from odoo import fields, models
 
 class HelpdeskTicketStage(models.Model):
     _name = 'helpdesk.ticket.stage'
+    _order = 'sequence, id'
 
     name = fields.Char(string='Stage Name', required=True, translate=True)
     description = fields.Html(translate=True, sanitize_style=True)
@@ -30,3 +31,4 @@ class HelpdeskTicketStage(models.Model):
         default=lambda self: self.env['res.company']._company_default_get(
             'helpdesk.ticket')
     )
+    sequence = fields.Integer(default=1)
