@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+
+    <!-- Actions -->
+    <record id="helpdesk_ticket_stage_action" model="ir.actions.act_window">
+        <field name="name">Ticket stage</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">helpdesk.ticket.stage</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_type">form</field>
+    </record>
+
+    <!-- Menus -->
+    <menuitem id="helpdesk_ticket_stages_menu" name="Ticket stages " sequence="16" action="helpdesk_factorlibre.helpdesk_ticket_stage_action" parent="helpdesk_factorlibre.helpdesk_ticket_main_menu" />
+
+    <!-- Views -->
+
+    <record id="ticket_stage_view_tree" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.stage.view.tree</field>
+        <field name="model">helpdesk.ticket.stage</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="description"/>
+                <field name="sequence"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="ticket_stage_view_form" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.stage.view.form</field>
+        <field name="model">helpdesk.ticket.stage</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="name"/>
+                        <field name="description"/>
+                    </group>
+                    <group>
+                        <field name="sequence"/>
+                        <field name="active"/>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+
+</odoo>
