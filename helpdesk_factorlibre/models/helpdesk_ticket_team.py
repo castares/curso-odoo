@@ -15,6 +15,8 @@ class HelpdeskTicketTeam(models.Model):
         string='Description',
     )
 
+    sequence = fields.Integer(default=1)
+
     color = fields.Integer("Color Index", default=0)
 
     ticket_ids = fields.One2many(
@@ -35,5 +37,5 @@ class HelpdeskTicketTeam(models.Model):
     def _compute_todo_tickets(self):
         for record in self:
             record.todo_ticket_ids = record.ticket_ids.filtered(
-                lambda ticket: ticket.stage_id.closed)
+                lambda ticket: ticket.stage_id.closed == False)
             record.todo_ticket_count = len(record.todo_ticket_ids)
