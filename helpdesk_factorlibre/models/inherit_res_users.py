@@ -14,10 +14,9 @@ class ResUsers(models.Model):
         inverse_name='user_id'
     )
 
-    team_id = fields.One2many(
+    team_ids = fields.Many2many(
         string='Team',
-        comodel_name='helpdesk.ticket',
-        inverse_name='team_id',
+        comodel_name='helpdesk.ticket.team',
     )
 
     count_open_tickets = fields.Integer(

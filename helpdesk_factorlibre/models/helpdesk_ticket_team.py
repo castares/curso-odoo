@@ -19,6 +19,8 @@ class HelpdeskTicketTeam(models.Model):
 
     color = fields.Integer("Color Index", default=0)
 
+    user_ids = fields.Many2many(comodel_name='res.users', string='Users')
+
     ticket_ids = fields.One2many(
         comodel_name='helpdesk.ticket',
         inverse_name='team_id',
