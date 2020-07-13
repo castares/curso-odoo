@@ -19,7 +19,8 @@ Helpdesk creado durante el curso de Odoo de Factor Libre
         'security/ir.model.access.csv',
         'views/helpdesk_ticket_stages_views.xml',
         'views/helpdesk_ticket_team_view.xml',
-        'views/inherit_helpdesk_ticket_views.xml'
+        'views/inherit_helpdesk_ticket_views.xml',
+        'views/inherit_res_users.xml'
 
     ],
     'installable': True
