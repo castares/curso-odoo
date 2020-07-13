@@ -13,7 +13,9 @@
 
     <!-- Menus -->
 
-    <menuitem id="helpdesk_ticket_teams_menu" name="Ticket Teams" sequence="16" action="helpdesk_factorlibre.helpdesk_ticket_team_action" parent="helpdesk_factorlibre.helpdesk_ticket_main_menu" />
+    <menuitem id="helpdesk_ticket_teams_menu" name="Teams" sequence="16" action="helpdesk_factorlibre.helpdesk_ticket_team_action" parent="helpdesk_factorlibre.helpdesk_ticket_main_menu" />
+
+    <menuitem id="helpdesk_ticket_teams_menu" name="Tickets by Team" sequence="16" action="helpdesk_factorlibre.helpdesk_ticket_team_action" />
 
     <!-- Views -->
 
@@ -45,7 +47,6 @@
         </field>
     </record>
 
-    <!-- TODO: Number of tickets is always 0 in the "To Do" Button -->
     <!-- helpdesk.ticket.team kanban view -->
     <record id="helpdesk_ticket_view_kanban" model="ir.ui.view">
         <field name="name">helpdesk.ticket.team.view.kanban</field>
@@ -54,7 +55,12 @@
             <kanban class="o_kanban_dashboard" string="Kanban view by teams">
                 <field name="name"/>
                 <field name="color"/>
-                <field name="todo_ticket_count"/>
+                <field name="ticket_ids"/>
+                <field name="open_ticket_count"/>
+                <field name="open_ticket_count_unassigned"/>
+                <field name="open_ticket_count_unattended"/>
+                <field name="open_ticket_count_high_priority"/>
+
                 <templates>
                     <t t-name="kanban-box">
                         <div t-attf-class="#{kanban_color(record.color.raw_value)}">
@@ -75,18 +81,49 @@
                                     <div class="row">
                                         <div class="col-xs-6 o_kanban_primary_left" style="padding-top:20px;">
                                             <button class="btn btn-primary" name="%(action_helpdesk_ticket_from_teams_kanban)d" type="action" context="{'search_default_open': 1}">
-                                                <t t-esc="record.todo_ticket_count.value"/>
-                                                To Do
+                                                <t t-esc="record.open_ticket_count.value"/>
+                                                Open
                                             </button>
+                                        </div>
+                                        <div>
+                                            <a name="%(action_helpdesk_ticket_from_teams_kanban)d" type="action" context="{'search_default_unassigned': 1, 'search_default_open': 1}">
+                                                <t t-esc="record.open_ticket_count_unassigned.value"/>
+                                                Unassigned
+                                            </a>
+                                        </div>
+                                        <div>
+                                            <a name="%(action_helpdesk_ticket_from_teams_kanban)d" type="action" context="{'search_default_unattended': 1, 'search_default_open': 1}">
+                                                <t t-esc="record.open_ticket_count_unattended.value"/>
+                                                Unattended
+                                            </a>
+                                        </div>
+                                        <div>
+                                            <a name="%(action_helpdesk_ticket_from_teams_kanban)d" type="action" context="{'search_default_high_priority': 1, 'search_default_open': 1}">
+                                                <t t-esc="record.open_ticket_count_high_priority.value"/>
+                                                High Priority
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div t-if="widget.editable" class="o_kanban_card_manage_settings row">
-                                    <div class="col-xs-8">
-                                        <ul class="oe_kanban_colorpicker" data-field="color"/>
+                                <div class="container o_kanban_card_manage_pane">
+                                    <div class="row">
+                                        <div class="col-xs-6 o_kanban_card_manage_section o_kanban_manage_view">
+                                            <div class="o_kanban_card_manage_title">
+                                                <span>Color Picker</span>
+                                            </div>
+                                        </div>
+
                                     </div>
+                                    <div t-if="widget.editable" class="o_kanban_card_manage_settings row">
+                                        <div class="col-xs-8">
+                                            <ul class="oe_kanban_colorpicker" data-field="color"/>
+                                        </div>
+                                    </div>
+
+
                                 </div>
+
                             </div>
                         </div>
                     </t>

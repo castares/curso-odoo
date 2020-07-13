@@ -32,3 +32,5 @@ class HelpdeskTicket(models.Model):
                               default=_get_default_team_id)
 
     color = fields.Integer("Color Index", default=0)
+
+    unattended = fields.Boolean(related='stage_id.unattended')
