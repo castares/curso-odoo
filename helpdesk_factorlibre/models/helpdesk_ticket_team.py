@@ -7,6 +7,7 @@ from odoo import models, fields, api
 
 class HelpdeskTicketTeam(models.Model):
     _name = 'helpdesk.ticket.team'
+    _order = 'sequence, id'
 
     name = fields.Char(
         string='Title',
